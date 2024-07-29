@@ -1,6 +1,5 @@
 package com.parinthorn.exam.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.parinthorn.exam.entity.Book;
@@ -25,9 +25,17 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    /*
+     * @GetMapping
+     * public List<Book> getAllBooks() {
+     * return bookService.getAllBooks();
+     * }
+     */
+
     @GetMapping
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public Object getAllBooks(@RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "3") Integer perPage) {
+        return bookService.getBooksByPage(pageNumber, perPage);
     }
 
     @GetMapping("/{id}")
