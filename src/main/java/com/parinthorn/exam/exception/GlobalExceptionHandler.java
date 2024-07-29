@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CustomErrorResponse> handleAllExceptions(Exception ex, WebRequest request) {
         CustomErrorResponse errorResponse = new CustomErrorResponse();
         errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        errorResponse.setMessage("An unexpected error occurred");
+        errorResponse.setMessage("An unexpected error occurred: " + ex.getMessage());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
